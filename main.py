@@ -62,7 +62,7 @@ def get_wr_skey():
 
 
 index = 1
-waittime = random.randint(10, 30)  # 随机生成等待时间（10-30 分钟）
+waittime = random.randint(5, 10)  # 随机生成等待时间（5-10 分钟）
 logging.info(f"⏱️ 开始等待，总等待时间: {waittime} 分钟")
 sleep_with_logging(waittime)
 
