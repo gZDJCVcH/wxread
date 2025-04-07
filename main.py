@@ -40,6 +40,16 @@ def cal_hash(input_string):
 
     return hex(_7032f5 + _cc1055)[2:].lower()
 
+def sleep_with_logging(total_minutes):
+    """
+    可视化等待时间，每分钟打印一次日志。
+    
+    :param total_minutes: 总等待时间（单位：分钟）
+    """
+    for remaining in range(total_minutes, 0, -1):  # 倒计时从总时间到 1
+        logging.info(f"⏳ 剩余等待时间: {remaining} 分钟")
+        time.sleep(60)  # 每次等待 1 分钟
+
 
 def get_wr_skey():
     """刷新cookie密钥"""
@@ -52,6 +62,10 @@ def get_wr_skey():
 
 
 index = 1
+waittime = random.randint(10, 30)  # 随机生成等待时间（10-30 分钟）
+logging.info(f"⏱️ 开始等待，总等待时间: {waittime} 分钟")
+sleep_with_logging(waittime)
+
 while index <= READ_NUM:
     data['ct'] = int(time.time())
     data['ts'] = int(time.time() * 1000)
@@ -86,4 +100,4 @@ logging.info("🎉 阅读脚本已完成！")
 
 if PUSH_METHOD not in (None, ''):
     logging.info("⏱️ 开始推送...")
-    push(f"🎉 微信读书自动阅读完成！\n⏱️ 阅读时长：{(index - 1) * 0.5}分钟。", PUSH_METHOD)
+    push(f"🎉 微信读书自动阅读完成！\n⏱️ 等待时间: {waittime}分钟; 阅读时长: {(index - 1) * 0.5}分钟。", PUSH_METHOD)
